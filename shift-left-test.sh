@@ -37,8 +37,6 @@ for (( i=0; i<${thread_count}; i++ )); do
   find ./$thread -type f \( -iname "*.yaml" -o -iname "*.yml" -o -iname "*.tf" -o -iname "*.json" \) > $thread.txt # -printf '%f\n'
 done
 
-SKYHIGH_USERNAME=root+apiuser@skyhighlabs.net
-SKYHIGH_PASSWORD=e9g@9bDjU2bqoR
 SKYHIGH_ENV="https://www.myshn.net"
 IAAS_PROVIDER="aws" # Tells Skyhigh which set of active CSPM policies to execute against.  Valid options are aws, gcp, or azure.
 
