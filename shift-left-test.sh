@@ -7,12 +7,14 @@ thread_count=16
 declare -a files=("ec2.json" "rds.json" "s3.yaml")
 
 if [[ -z "${SKYHIGH_USERNAME}" ]]; then
-  echo "Error: You must set the environment variable SKYHIGH_USERNAME"
+  echo "Error: You must set the environment variable SKYHIGH_USERNAME."
+  echo "Hint: SKYHIGH_USERNAME=yourusername SKYHIGH_PASSWORD=yourpassword ./shift-left-test.sh"
   exit 1
 fi
 
 if [[ -z "${SKYHIGH_PASSWORD}" ]]; then
   echo "Error: You must set the environment variable SKYHIGH_PASSWORD"
+  echo "Hint: SKYHIGH_USERNAME=yourusername SKYHIGH_PASSWORD=yourpassword ./shift-left-test.sh"
   exit 1
 fi
 
