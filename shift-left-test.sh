@@ -6,6 +6,16 @@ thread_count=16
 # Array of original files of applicable type
 declare -a files=("ec2.json" "rds.json" "s3.yaml")
 
+if [[ -z "${SKYHIGH_USERNAME}" ]]; then
+  echo "Error: You must set the environment variable SKYHIGH_USERNAME"
+  exit 1
+fi
+
+if [[ -z "${SKYHIGH_PASSWORD}" ]]; then
+  echo "Error: You must set the environment variable SKYHIGH_PASSWORD"
+  exit 1
+fi
+
 echo "Cleaning up old files..."
 rm -Rf thread*
 
