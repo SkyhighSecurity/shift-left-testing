@@ -56,7 +56,7 @@ for (( i=0; i<${thread_count}; i++ )); do
   THREAD_DATA=$(cat "thread$i.txt" | while read line; do echo $line; done)
   THREAD_DATA=$(echo $THREAD_DATA  | tr ' ' ',')
   echo "Starting docker instance $i..."
-  docker run -v $PWD:/data shiftleftdockerimage:latest $THREAD_DATA $SKYHIGH_USERNAME $SKYHIGH_PASSWORD "/data" $IAAS_PROVIDER $SKYHIGH_ENV &
+  docker run -v $PWD:/data ghcr.io/skyhighsecurity/shiftleft-docker-image:latest $THREAD_DATA $SKYHIGH_USERNAME $SKYHIGH_PASSWORD "/data" $IAAS_PROVIDER $SKYHIGH_ENV &
   sleep 5
 done
 

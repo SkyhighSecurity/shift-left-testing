@@ -1,0 +1,56 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "EC2SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Allow http to client host",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "Ec2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "InstanceType": "t2.nano",
+        "ImageId": "ami-04590e7389a6e577c",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Sub": "#!/bin/bash\nyum -y update\n\nyum -y install git\nrm -f /home/ec2-user/.aws/*\nrm -f /root/.aws/*\nexport HOME=/root\ngit config --global credential.helper '!aws codecommit credential-helper $@'\ngit config --global credential.UseHttpPath true\ngit clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/SESummit2020 /home/ec2-user/SESummit2020\n\n/bin/bash /home/ec2-user/SESummit2020/ShiftLeft-ec2-files/initscript.sh\necho rebooting\ninit 6\n"
+          }
+        },
+        "SecurityGroups": [
+          {
+            "Ref": "EC2SecurityGroup"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ShiftLeft FixMe Easy"
+          },
+          {
+            "Key": "Type",
+            "Value": "Worker Instance"
+          },
+          {
+            "Key": "IaaSLabTemplateType",
+            "Value": "Easy"
+          }
+        ]
+      }
+    }
+  }
+}
